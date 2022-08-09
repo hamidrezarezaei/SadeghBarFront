@@ -1,0 +1,555 @@
+const CityArray = [
+    //0
+    [],
+    //1 - آذربایجان شرقی
+    [
+        { label: 'تبریز', value: 1 },
+        { label: 'مراغه', value: 2 },
+        { label: 'مرند', value: 3 },
+        { label: 'میانه', value: 4 },
+        { label: 'اسکو', value: 5 },
+        { label: 'اهر', value: 6 },
+        { label: 'شبستر', value: 7 },
+        { label: 'بناب', value: 8 },
+        { label: 'سراب', value: 9 },
+        { label: 'ملکان', value: 10 },
+        { label: 'آذرشهر', value: 11 },
+        { label: 'بستان‌آباد', value: 12 },
+        { label: 'عجب‌شیر', value: 13 },
+        { label: 'هریس', value: 14 },
+        { label: 'جلفا', value: 15 },
+        { label: 'هشترود', value: 16 },
+        { label: 'ورزقان', value: 17 },
+        { label: 'کلیبر', value: 18 },
+        { label: 'خداآفرین', value: 19 },
+        { label: 'چاراویماق', value: 20 },
+    ],
+    //2 - آذربایجان غربی
+    [
+        { label: 'ارومیه', value: 21 },
+        { label: 'خوی', value: 22 },
+        { label: 'میاندوآب', value: 23 },
+        { label: 'بوکان', value: 24 },
+        { label: 'مهاباد', value: 25 },
+        { label: 'سلماس', value: 26 },
+        { label: 'پیرانشهر', value: 27 },
+        { label: 'نقده', value: 28 },
+        { label: 'سردشت', value: 29 },
+        { label: 'ماکو', value: 30 },
+        { label: 'شاهین‌دژ', value: 31 },
+        { label: 'تکاب', value: 32 },
+        { label: 'اشنویه', value: 33 },
+        { label: 'شوط', value: 34 },
+        { label: 'چایپاره', value: 35 },
+        { label: 'چالدران', value: 36 },
+        { label: 'پلدشت', value: 37 },
+    ],
+    //3 - اردبیل
+    [
+        { label: 'اردبیل', value: 38 },
+        { label: 'پارس‌آباد', value: 39 },
+        { label: 'مشگین‌شهر', value: 40 },
+        { label: 'خلخال', value: 41 },
+        { label: 'گرمی', value: 42 },
+        { label: 'نمین', value: 43 },
+        { label: 'بیله‌سوار', value: 44 },
+        { label: 'اصلاندوز', value: 45 },
+        { label: 'کوثر', value: 46 },
+        { label: 'نیر', value: 47 },
+        { label: 'سرعین', value: 48 },
+    ],
+    //4 - اصفهان
+    [
+
+        { label: 'اصفهان', value: 49 },
+        { label: 'کاشان', value: 50 },
+        { label: 'خمینی‌شهر', value: 51 },
+        { label: 'نجف‌آباد', value: 52 },
+        { label: 'لنجان', value: 53 },
+        { label: 'فلاورجان', value: 54 },
+        { label: 'شاهین‌شهر', value: 55 },
+        { label: 'میمه', value: 56 },
+        { label: 'شهرضا', value: 57 },
+        { label: 'مبارکه', value: 58 },
+        { label: 'برخوار', value: 59 },
+        { label: 'آران و بیدگل', value: 60 },
+        { label: 'گلپایگان', value: 61 },
+        { label: 'سمیرم', value: 62 },
+        { label: 'تیران و کرون', value: 63 },
+        { label: 'فریدن', value: 64 },
+        { label: 'نطنز', value: 65 },
+        { label: 'اردستان', value: 66 },
+        { label: 'نائین', value: 67 },
+        { label: 'فریدون‌شهر', value: 68 },
+        { label: 'دهاقان', value: 69 },
+        { label: 'خوانسار', value: 70 },
+        { label: 'چادگان', value: 71 },
+        { label: 'بوئین و میاندشت', value: 72 },
+        { label: 'خور و بیابانک', value: 73 },
+    ],
+    //5 - البرز
+    [
+
+        { label: 'کرج', value: 74 },
+        { label: 'فردیس', value: 75 },
+        { label: 'ساوجبلاغ', value: 76 },
+        { label: 'نظرآباد', value: 77 },
+        { label: 'اشتهارد', value: 78 },
+        { label: 'طالقان', value: 79 },
+    ],
+    //6 - ایلام
+    [
+
+        { label: 'ایلام', value: 80 },
+        { label: 'دهلران', value: 81 },
+        { label: 'چرداول', value: 82 },
+        { label: 'ایوان', value: 83 },
+        { label: 'آبدانان', value: 84 },
+        { label: 'دره‌شهر', value: 85 },
+        { label: 'مهران', value: 86 },
+        { label: 'ملکشاهی', value: 87 },
+        { label: 'بدره', value: 88 },
+        { label: 'سیروان', value: 89 },
+    ],
+    //7 - بوشهر
+    [
+
+        { label: 'بوشهر', value: 90 },
+        { label: 'دشتستان', value: 91 },
+        { label: 'کنگان', value: 92 },
+        { label: 'گناوه', value: 93 },
+        { label: 'دشتی', value: 94 },
+        { label: 'تنگستان', value: 95 },
+        { label: 'عسلویه', value: 96 },
+        { label: 'جم', value: 97 },
+        { label: 'دیر', value: 98 },
+        { label: 'دیلم', value: 99 },
+    ],
+    //8 - تهران
+    [
+
+        { label: 'تهران', value: 100 },
+        { label: 'شهریار', value: 101 },
+        { label: 'اسلامشهر', value: 102 },
+        { label: 'بهارستان', value: 103 },
+        { label: 'ملارد', value: 104 },
+        { label: 'پاکدشت', value: 105 },
+        { label: 'ری', value: 106 },
+        { label: 'قدس', value: 107 },
+        { label: 'رباط‌کریم', value: 108 },
+        { label: 'ورامین', value: 109 },
+        { label: 'قرچک', value: 110 },
+        { label: 'پردیس', value: 111 },
+        { label: 'دماوند', value: 112 },
+        { label: 'پیشوا', value: 113 },
+        { label: 'شمیرانات', value: 114 },
+        { label: 'فیروزکوه', value: 115 },
+    ],
+    //9 - چهارمحال و بختیاری
+    [
+
+        { label: 'شهرکرد', value: 116 },
+        { label: 'لردگان', value: 117 },
+        { label: 'بروجن', value: 118 },
+        { label: 'فارسان', value: 119 },
+        { label: 'کیار', value: 120 },
+        { label: 'اردل', value: 121 },
+        { label: 'کوهرنگ', value: 122 },
+        { label: 'سامان', value: 123 },
+        { label: 'بن', value: 124 },
+    ],
+    //10 - خراسان جنوبی
+    [
+
+        { label: 'بیرجند', value: 125 },
+        { label: 'قائنات', value: 126 },
+        { label: 'طبس', value: 127 },
+        { label: 'درمیان', value: 128 },
+        { label: 'نهبندان', value: 129 },
+        { label: 'فردوس', value: 130 },
+        { label: 'سربیشه', value: 131 },
+        { label: 'زیرکوه', value: 132 },
+        { label: 'سرایان', value: 133 },
+        { label: 'خوسف', value: 134 },
+        { label: 'بشرویه', value: 135 },
+    ],
+    //11 - خراسان رضوی
+    [
+
+        { label: 'مشهد', value: 136 },
+        { label: 'نیشابور', value: 137 },
+        { label: 'سبزوار', value: 138 },
+        { label: 'تربت جام', value: 139 },
+        { label: 'تربت حیدریه', value: 140 },
+        { label: 'قوچان', value: 141 },
+        { label: 'کاشمر', value: 142 },
+        { label: 'چناران', value: 143 },
+        { label: 'خواف', value: 144 },
+        { label: 'تایباد', value: 145 },
+        { label: 'فریمان', value: 146 },
+        { label: 'سرخس', value: 147 },
+        { label: 'گناباد', value: 148 },
+        { label: 'بردسکن', value: 149 },
+        { label: 'درگز', value: 150 },
+        { label: 'بینالود', value: 151 },
+        { label: 'زاوه', value: 152 },
+        { label: 'رشتخوار', value: 153 },
+        { label: 'باخرز', value: 154 },
+        { label: 'جوین', value: 155 },
+        { label: 'خلیل‌آباد', value: 156 },
+        { label: 'مه‌ولات', value: 157 },
+        { label: 'جغتای', value: 158 },
+        { label: 'فیروزه', value: 159 },
+        { label: 'خوشاب', value: 160 },
+        { label: 'کلات', value: 161 },
+        { label: 'بجستان', value: 162 },
+        { label: 'داورزن', value: 163 },
+    ],
+    //12 - خراسان شمالی
+    [
+
+        { label: 'بجنورد', value: 164 },
+        { label: 'شیروان', value: 165 },
+        { label: 'اسفراین', value: 166 },
+        { label: 'مانه و سملقان', value: 167 },
+        { label: 'فاروج', value: 168 },
+        { label: 'راز و جرگلان', value: 169 },
+        { label: 'جاجرم', value: 170 },
+        { label: 'گرمه', value: 171 },
+    ],
+    //13 - خوزستان
+    [
+
+        { label: 'اهواز', value: 172 },
+        { label: 'دزفول', value: 173 },
+        { label: 'آبادان', value: 174 },
+        { label: 'بندر ماهشهر', value: 175 },
+        { label: 'شوش', value: 176 },
+        { label: 'ایذه', value: 177 },
+        { label: 'شوشتر', value: 178 },
+        { label: 'بهبهان', value: 179 },
+        { label: 'اندیمشک', value: 180 },
+        { label: 'خرمشهر', value: 181 },
+        { label: 'شادگان', value: 182 },
+        { label: 'رامهرمز', value: 183 },
+        { label: 'مسجدسلیمان', value: 184 },
+        { label: 'دشت آزادگان', value: 185 },
+        { label: 'کارون', value: 186 },
+        { label: 'باغ‌ملک', value: 187 },
+        { label: 'باوی', value: 188 },
+        { label: 'امیدیه', value: 189 },
+        { label: 'گتوند', value: 190 },
+        { label: 'رامشیر', value: 191 },
+        { label: 'حمیدیه', value: 192 },
+        { label: 'اندیکا', value: 193 },
+        { label: 'هویزه', value: 194 },
+        { label: 'هندیجان', value: 195 },
+        { label: 'لالی', value: 196 },
+        { label: 'هفتکل', value: 197 },
+        { label: 'آغاجاری', value: 198 },
+    ],
+    //14 - زنجان
+    [
+
+        { value: 199, label: "زنجان" },
+        { value: 200, label: "خدابنده" },
+        { value: 201, label: "ابهر" },
+        { value: 202, label: "خرمدره" },
+        { value: 203, label: "طارم" },
+        { value: 204, label: "ماه‌نشان" },
+        { value: 205, label: "ایجرود" },
+        { value: 206, label: "سلطانیه" }
+    ],
+    //15 - سمنان
+    [
+
+        { value: 207, label: "سمنان" },
+        { value: 208, label: "شاهرود" },
+        { value: 209, label: "دامغان" },
+        { value: 210, label: "گرمسار" },
+        { value: 211, label: "مهدی‌شهر" },
+        { value: 212, label: "میامی" },
+        { value: 213, label: "سرخه" },
+        { value: 214, label: "آرادان" }
+    ],
+    //16 - سیستان و بلوچستان
+    [
+
+        { value: 215, label: "زاهدان" },
+        { value: 216, label: "چابهار" },
+        { value: 217, label: "ایرانشهر" },
+        { value: 218, label: "سراوان" },
+        { value: 219, label: "راسک" },
+        { value: 220, label: "خاش" },
+        { value: 221, label: "زابل" },
+        { value: 222, label: "نیک شهر" },
+        { value: 223, label: "کنارک" },
+        { value: 224, label: "سیب و سوران" },
+        { value: 225, label: "زهک" },
+        { value: 226, label: "مهرستان" },
+        { value: 227, label: "دلگان" },
+        { value: 228, label: "هیرمند" },
+        { value: 229, label: "قصرقند" },
+        { value: 230, label: "فنوج" },
+        { value: 231, label: "نیمروز" },
+        { value: 232, label: "میرجاوه" },
+        { value: 233, label: "هامون" }
+    ],
+    //17 - فارس
+    [
+
+        { value: 234, label: "شیراز" },
+        { value: 235, label: "مرودشت" },
+        { value: 236, label: "کازرون" },
+        { value: 237, label: "جهرم" },
+        { value: 238, label: "لارستان" },
+        { value: 239, label: "فسا" },
+        { value: 240, label: "داراب" },
+        { value: 241, label: "فیروزآباد" },
+        { value: 242, label: "ممسنی" },
+        { value: 243, label: "نی ریز" },
+        { value: 244, label: "آباده" },
+        { value: 245, label: "اقلید" },
+        { value: 246, label: "لامرد" },
+        { value: 247, label: "سپیدان" },
+        { value: 248, label: "کوار" },
+        { value: 249, label: "زرین‌دشت" },
+        { value: 250, label: "قیر و کارزین" },
+        { value: 251, label: "استهبان" },
+        { value: 252, label: "مهر" },
+        { value: 253, label: "خرامه" },
+        { value: 254, label: "گراش" },
+        { value: 255, label: "خرم‌بید" },
+        { value: 256, label: "بوانات" },
+        { value: 257, label: "فراشبند" },
+        { value: 258, label: "رستم" },
+        { value: 259, label: "ارسنجان" },
+        { value: 260, label: "خنج" },
+        { value: 261, label: "سروستان" },
+        { value: 262, label: "پاسارگاد" }],
+    //18 - قزوین
+    [
+
+        { value: 263, label: "قزوین" },
+        { value: 264, label: "البرز" },
+        { value: 265, label: "تاکستان" },
+        { value: 266, label: "طلعت آباد" },
+        { value: 267, label: "بوئین‌زهرا" },
+        { value: 268, label: "آبیک" },
+        { value: 269, label: "آوج" }
+    ],
+    //19 - قم
+    [
+
+        { value: 270, label: "قم" }
+    ],
+    //20 - کردستان
+    [
+
+        { value: 271, label: "سنندج" },
+        { value: 272, label: "سقز" },
+        { value: 273, label: "مریوان" },
+        { value: 274, label: "بانه" },
+        { value: 275, label: "قروه" },
+        { value: 276, label: "کامیاران" },
+        { value: 277, label: "بیجار" },
+        { value: 278, label: "دیواندره" },
+        { value: 279, label: "دهگلان" },
+        { value: 280, label: "سروآباد" }
+    ],
+    //21 - کرمان
+    [
+
+        { value: 281, label: "کرمان" },
+        { value: 282, label: "سیرجان" },
+        { value: 283, label: "رفسنجان" },
+        { value: 284, label: "جیرفت" },
+        { value: 285, label: "بم" },
+        { value: 286, label: "زرند" },
+        { value: 287, label: "رودبار جنوب" },
+        { value: 288, label: "شهربابک" },
+        { value: 289, label: "کهنوج" },
+        { value: 290, label: "ریگان" },
+        { value: 291, label: "بافت" },
+        { value: 292, label: "عنبرآباد" },
+        { value: 293, label: "بردسیر" },
+        { value: 294, label: "قلعه گنج" },
+        { value: 295, label: "فهرج" },
+        { value: 296, label: "منوجان" },
+        { value: 297, label: "نرماشیر" },
+        { value: 298, label: "راور" },
+        { value: 299, label: "ارزوئیه" },
+        { value: 300, label: "انار" },
+        { value: 301, label: "رابر" },
+        { value: 302, label: "فاریاب" },
+        { value: 303, label: "کوهبنان" }
+    ],
+    //22 - کرمانشاه
+    [
+
+        { value: 304, label: "کرمانشاه" },
+        { value: 305, label: "اسلام‌آباد غرب" },
+        { value: 306, label: "سرپل ذهاب\t" },
+        { value: 307, label: "سنقر" },
+        { value: 308, label: "هرسین" },
+        { value: 309, label: "کنگاور" },
+        { value: 310, label: "جوانرود" },
+        { value: 311, label: "صحنه" },
+        { value: 312, label: "پاوه" },
+        { value: 313, label: "گیلانغرب" },
+        { value: 314, label: "روانسر" },
+        { value: 315, label: "دالاهو" },
+        { value: 316, label: "ثلاث باباجانی" },
+        { value: 317, label: "قصرشیرین" }
+    ],
+    //23 - کهگیلویه و بویراحمد
+    [
+
+        { value: 318, label: "کهگیلویه" },
+        { value: 319, label: "بویراحمد" },
+        { value: 320, label: "گچساران" },
+        { value: 321, label: "دنا" },
+        { value: 322, label: "بهمئی" },
+        { value: 323, label: "چرام" },
+        { value: 324, label: "لنده" },
+        { value: 325, label: "باشت" }
+    ],
+    //24 - گلستان
+    [
+
+        { value: 326, label: "گرگان" },
+        { value: 327, label: "گنبد کاووس" },
+        { value: 328, label: "علی‌آباد" },
+        { value: 329, label: "آق‌قلا" },
+        { value: 330, label: "کلاله" },
+        { value: 331, label: "آزادشهر" },
+        { value: 332, label: "رامیان" },
+        { value: 333, label: "ترکمن" },
+        { value: 334, label: "مینودشت" },
+        { value: 335, label: "کردکوی" },
+        { value: 336, label: "گمیشان" },
+        { value: 337, label: "\tگالیکش" },
+        { value: 338, label: "مراوه‌تپه" },
+        { value: 339, label: "بندر گز" }
+    ],
+    //25 - گیلان
+    [
+
+        { value: 340, label: "رشت" },
+        { value: 341, label: "تالش" },
+        { value: 342, label: "لاهیجان" },
+        { value: 343, label: "رودسر" },
+        { value: 344, label: "لنگرود" },
+        { value: 345, label: "بندر انزلی" },
+        { value: 346, label: "صومعه‌سرا" },
+        { value: 347, label: "آستانه اشرفیه" },
+        { value: 348, label: "رودبار" },
+        { value: 349, label: "فومن" },
+        { value: 350, label: "آستارا" },
+        { value: 351, label: "رضوانشهر" },
+        { value: 352, label: "شفت" },
+        { value: 353, label: "ماسال" },
+        { value: 354, label: "سیاهکل" },
+        { value: 355, label: "املش" }
+    ],
+    //26 - لرستان
+    [
+
+        { value: 356, label: "خرم‌آباد" },
+        { value: 357, label: "بروجرد" },
+        { value: 358, label: "دورود" },
+        { value: 359, label: "کوهدشت" },
+        { value: 360, label: "دلفان" },
+        { value: 361, label: "الیگودرز" },
+        { value: 362, label: "سلسله" },
+        { value: 363, label: "ازنا" },
+        { value: 364, label: "پلدختر" },
+        { value: 365, label: "دوره" },
+        { value: 366, label: "رومشکان" }
+    ],
+    //27 - مازندران
+    [
+
+        { value: 367, label: "ساری" },
+        { value: 368, label: "بابل" },
+        { value: 369, label: "آمل" },
+        { value: 370, label: "قائم‌شهر" },
+        { value: 371, label: "بهشهر" },
+        { value: 372, label: "تنکابن" },
+        { value: 373, label: "نوشهر" },
+        { value: 374, label: "بابلسر" },
+        { value: 375, label: "نور" },
+        { value: 376, label: "نکا" },
+        { value: 377, label: "چالوس" },
+        { value: 378, label: "محمودآباد" },
+        { value: 379, label: "جویبار" },
+        { value: 380, label: "رامسر" },
+        { value: 381, label: "فریدونکنار" },
+        { value: 382, label: "میاندرود" },
+        { value: 383, label: "عباس‌آباد" },
+        { value: 384, label: "سوادکوه" },
+        { value: 385, label: "گلوگاه" },
+        { value: 386, label: "کلاردشت" },
+        { value: 387, label: "سیمرغ" }
+    ],
+    //28 - مرکزی
+    [
+
+        { value: 388, label: "اراک" },
+        { value: 389, label: "ساوه" },
+        { value: 390, label: "شازند" },
+        { value: 391, label: "خمین" },
+        { value: 392, label: "زرندیه" },
+        { value: 393, label: "محلات" },
+        { value: 394, label: "خنداب" },
+        { value: 395, label: "دلیجان" },
+        { value: 396, label: "کمیجان" },
+        { value: 397, label: "فراهان" },
+        { value: 398, label: "تفرش" },
+        { value: 399, label: "آشتیان" }],
+    //29 - هرمزگان
+    [
+
+        { value: 400, label: "بندرعباس" },
+        { value: 401, label: "میناب" },
+        { value: 402, label: "بندر لنگه" },
+        { value: 403, label: "قشم" },
+        { value: 404, label: "رودان" },
+        { value: 405, label: "بستک" },
+        { value: 406, label: "حاجی‌آباد" },
+        { value: 407, label: "جاسک" },
+        { value: 408, label: "خمیر" },
+        { value: 409, label: "پارسیان" },
+        { value: 410, label: "سیریک" },
+        { value: 411, label: "بشاگرد" },
+        { value: 412, label: "ابوموسی" }
+    ],
+    //30 - همدان
+    [
+
+        { value: 413, label: "همدان" },
+        { value: 414, label: "ملایر" },
+        { value: 415, label: "نهاوند" },
+        { value: 416, label: "کبودرآهنگ" },
+        { value: 417, label: "بهار" },
+        { value: 418, label: "رزن" },
+        { value: 419, label: "تویسرکان" },
+        { value: 420, label: "اسدآباد" },
+        { value: 421, label: "فامنین" }
+    ],
+    //31 - یزد
+    [
+
+        { value: 422, label: "یزد" },
+        { value: 423, label: "میبد" },
+        { value: 424, label: "اردکان" },
+        { value: 425, label: "مهریز" },
+        { value: 426, label: "ابرکوه" },
+        { value: 427, label: "بافق" },
+        { value: 428, label: "تفت" },
+        { value: 429, label: "خاتم" },
+        { value: 430, label: "اشکذر" },
+        { value: 431, label: "بهاباد" }
+    ],
+];
+export default CityArray;
