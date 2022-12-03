@@ -21,21 +21,35 @@ export const GetCurrent_User_Api = async () => {
     const { data } = await request.get(
         `/User/GetCurrentUser`
     );
-    console.log('22',data);
+    return data;
+};
 
+// -----------------------------------------------------------
+// let expoToken = {
+//     expoToken: "09132222222",
+//   };
+export const UpdateExpoToken_User_Api = async (expoToken) => {
+    const { data } = await request.post(
+        `/User/UpdateExpoToken`,
+        expoToken
+    );
     return data;
 };
 // -----------------------------------------------------------
-// let userPassword = {
-//     OldPassword: "1234",
-//     NewPassword: "123456"
+// let notificationStatus = {
+//     isEnable: true,
 //   };
-//   let data = await ChangeMyPassword_User_Api(userPassword);
-//   console.log(data);
-export const ChangeMyPassword_User_Api = async (user) => {
+export const SetNotificationStatus_User_Api = async (notificationStatus) => {
     const { data } = await request.post(
-        `/User/ChangeMyPassword`,
-        user
+        `/User/SetNotificationStatus`,
+        notificationStatus
+    );
+    return data;
+};
+// -----------------------------------------------------------
+export const GetNotificationStatus_User_Api = async () => {
+    const { data } = await request.get(
+        `/User/GetNotificationStatus`
     );
     return data;
 };
@@ -205,3 +219,26 @@ export const Delete_User_Api = async (id) => {
     return data;
 };
 // -----------------------------------------------------------
+// let smsInfo = {
+//     userId: 0,
+//     text: "متن پیام"
+//   };
+export const SendPureSms_User_Api = async (smsInfo) => {
+    const { data } = await request.post(
+        `/User/SendPureSms`,
+        smsInfo
+    );
+    return data;
+};
+// -----------------------------------------------------------
+// let logInfo = {
+//     userId: 0,
+//     text: "متن پیام"
+//   };
+export const AddLog_User_Api = async (logInfo) => {
+    const { data } = await request.post(
+        `/User/AddLog`,
+        logInfo
+    );
+    return data;
+};

@@ -97,7 +97,7 @@ export const globalStyles = StyleSheet.create({
     },
     form_FieldTitle: {
         width: calcPercent(79),
-        fontSize: 14,
+        fontSize: 15,
         textAlignVertical: 'center',
     },
     form_FieldValue: {
@@ -106,20 +106,20 @@ export const globalStyles = StyleSheet.create({
         textAlign: 'right',
         paddingHorizontal: 5,
     },
-    form_checkBoxGroup: {
-        width: calcPercent(87),
-        flexDirection: "row",
-        justifyContent: "space-between",
-    },
-    form_checkBox: {
-        width: calcPercent(40),
+    // form_checkBoxGroup: {
+    //     width: calcPercent(87),
+    //     flexDirection: "row",
+    //     justifyContent: "space-between",
+    // },
+    // form_checkBox: {
+    //     width: calcPercent(40),
 
-    },
-    form_checkBoxTitle: {
-        paddingHorizontal: 5,
-        fontFamily: 'IranSans',
+    // },
+    // form_checkBoxTitle: {
+    //     paddingHorizontal: 5,
+    //     fontFamily: 'IranSans',
 
-    },
+    // },
     // ==========================end form===========================
 
     header: {
@@ -131,6 +131,8 @@ export const globalStyles = StyleSheet.create({
     toastMessage: {
         fontFamily: 'IranSans',
         fontSize: 13,
+        padding:2,
+        paddingVertical:5
 
     },
     row: {
@@ -152,11 +154,11 @@ export const globalStyles = StyleSheet.create({
         borderColor: '#cdcdcd',
         width: '90%',
         alignSelf: "center",
-        marginVertical: 3,
+        marginVertical: 5,
     },
     field_Title: {
         fontFamily: "IranSans",
-        fontSize: 13,
+        fontSize: 14,
         textAlignVertical:'center'
     },
     field_Value: {
@@ -283,7 +285,7 @@ export const globalStyles = StyleSheet.create({
     },
     combo_TextStyle: {
         fontFamily: 'IranSans',
-        fontSize: 12,
+        fontSize: 14,
     },
     combo_LabelStyle: {
         marginTop: 0,

@@ -8,6 +8,6 @@ export default function SubmitByMeScreen(props) {
   const context = useContext(UserContext);
 
   return (
-    <UserSubmissionCargoes userId={context.CurrentUser?.id} userFullName={context.CurrentUser?.fullName} navigation={props.navigation} isShowCompleteInfo={false}  isShowBackButton={false}/>
+    <UserSubmissionCargoes userId={context.CurrentUser?.id} userFullName={"شما"} navigation={props.navigation} isShowCompleteInfo={false}  isShowBackButton={false}/>
   )
 }

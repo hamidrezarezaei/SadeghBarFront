@@ -1,270 +1,106 @@
-import React, { useEffect, useState,useContext } from 'react'
-import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import { ScrollView } from 'react-native-gesture-handler';
+import React, { useEffect, useState, useContext } from 'react'
+import { ScrollView, Text, View } from 'react-native'
 import { useToast } from "react-native-toast-notifications";
-import { GetById_Cargo_Api } from '../../Api/cargoApi';
-import { Enter_Queue_Api, Exit_Queue_Api, ExtendTime_Queue_Api, GetItems_Queue_Api, TakeByDriver_Queue_Api } from '../../Api/queueApi';
-import { CancelBySubmitter_Cargo_Api } from '../../Api/cargoApi';
+import { SmartGetById_Cargo_Api } from '../../Api/cargoApi';
+import { GetItems_Queue_Api } from '../../Api/queueApi';
 import { globalStyles } from '../../assets/Styles/GlobalStyle';
-import CargoInfo from '../../Component/CargoInfo/CargoInfo';
-import CargoSubmitterInfo from '../../Component/CargoSubmitterInfo/CargoSubmitterInfo';
+import CargoInfo from '../../Component/CargoList/CargoInfo/CargoInfo';
+import CargoSubmitterInfo from '../../Component/CargoList/CargoSubmitterInfo/CargoSubmitterInfo';
 import Loading from '../../Component/Loading/Loading';
-import Queue from '../../Component/Queue/Queue';
+import Queue from '../../Component/CargoList/Queue/Queue';
 import { cargoSingleStyles } from './CargoSingleStyle';
-import CountDown from '../../Component/CountDown/CountDown';
+import CountDown from '../../Component/CargoList/CountDown/CountDown';
 import UserContext from '../../Context/UserContext';
+import { IsAdminCurrentUser } from '../../Util/UserUtils';
+import BehaviorButtons from '../../Component/CargoList/BehaviorButtons/BehaviorButtons';
 
 // =================================================================
 export default function CargoSingleScreen({ navigation, route }) {
   const context = useContext(UserContext);
-
   const myUserId = context.CurrentUser?.id;
   const { id } = route.params;
   const [loading, setLoading] = useState(false);
   const [cargo, setCargo] = useState(null);
-  const [queueItems, setQueueItems] = useState([]);
-  const [currentQueueItem, setCurrentQueueItem] = useState(null);
-  const [remainingTime, setRemainingTime] = useState(0);
+
   const [isMyCargo, setIsMyCargo] = useState(false);
+  const [isMeWaitingInQueue, setIsMeWaitingInQueue] = useState(false);
+  const [isMeInFrontOfQueue, setIsMeInFrontOfQueue] = useState(false);
+
+  const [remainingTime, setRemainingTime] = useState(0);
   const toast = useToast();
   // =================================================================
   useEffect(() => {
-    refreshScreen();
+    setLoading(true);
+    loadCargo();
+    setLoading(false);
   }, []);
   // =================================================================
-  useEffect(() => {
-    const timerId = setInterval(() => {
-      refreshScreen();
-    }, 8000);
-    return () => {
-      clearInterval(timerId);
-    };
-  }, []);
-  // =================================================================
-  const refreshScreen = () => {
-    try {
-      setLoading(true);
-
-      loadCargo();
-      loadQueueItems();
-
-      setLoading(false);
-    }
-    catch (error) {
-      setLoading(false);
-      toast.show("خطا در ارتباط با سرور.", { type: "danger" });
-    }
-  }
+  // useEffect(() => {
+  //   const timerId = setInterval(() => {
+  //     refreshScreen();
+  //   }, 4000);
+  //   return () => {
+  //     clearInterval(timerId);
+  //   };
+  // }, []);
   // =================================================================
   const loadCargo = async () => {
-    let data = await GetById_Cargo_Api(id);
-    // console.log(id);
-    if (data.messageStatus == "Successful") {
-      //آیا بار ما همین یوزر است
-      setIsMyCargo(data.messageData.data.submitterUserId == myUserId);
-      setCargo(data.messageData.data);
-    }
-    else {
-      toast.show(data.message, { type: "danger" });
-    }
-  }
-  // =================================================================
-  const loadQueueItems = async () => {
-    let data = await GetItems_Queue_Api(id);
-    if (data.messageStatus == "Successful") {
-      setQueueItems(data.messageData.data);
-      var t = data.messageData.data.filter(q => q.isMe && q.isFront)[0];
-      // console.log(t);
-      setCurrentQueueItem(t);
-      //اگر سر صف هستیم زمان باقی مانده را هم بگیر
-      let x = data.messageData.data.filter(q => q.isMe && q.isFront);
-      if (x && x.length)
-        setRemainingTime(x[0].remainingSecond);
-      else
-        setRemainingTime(0);
-    }
-    else {
-      // toast.show(data.message + 'krr', { type: "danger" });
-    }
-  }
-  // =================================================================
-  const enterToQueue = async () => {
     try {
-      setLoading(true);
-      let data = await Enter_Queue_Api(id);
+      let data = await SmartGetById_Cargo_Api(id);
+      // console.log(id);
       if (data.messageStatus == "Successful") {
-        setLoading(false);
-        refreshScreen();
-        toast.show(data.message, { type: "success" });
+        //آیا بار ما همین یوزر است
+        setIsMyCargo(data.messageData.data.submitterUserId == myUserId);
+        // console.log('hrr1',data.messageData.data);
+        setCargo(data.messageData.data);
       }
       else {
-        setLoading(false);
         toast.show(data.message, { type: "danger" });
       }
     }
     catch (error) {
-      setLoading(false);
+      // setLoading(false);
       toast.show("خطا در ارتباط با سرور.", { type: "danger" });
     }
   }
-  // =================================================================
-  const exitFromQueue = async () => {
-    try {
-      setLoading(true);
-      let data = await Exit_Queue_Api(id);
-      if (data.messageStatus == "Successful") {
-        setLoading(false);
-        // refreshScreen();
-        toast.show(data.message, { type: "success" });
-        navigation.navigate('CargoListScreen');
 
-      }
-      else {
-        setLoading(false);
-        toast.show(data.message, { type: "danger" });
-      }
-    }
-    catch (error) {
-      setLoading(false);
-      toast.show("خطا در ارتباط با سرور.", { type: "danger" });
-    }
-  }
-  // =================================================================
-  const takeByDriver = async () => {
-    try {
-      setLoading(true);
-      let data = await TakeByDriver_Queue_Api(id);
-      if (data.messageStatus == "Successful") {
-        setLoading(false);
-        // refreshScreen();
-        toast.show(data.message, { type: "success" });
-        navigation.navigate('CarryByMeScreen');
-      }
-      else {
-        setLoading(false);
-        toast.show(data.message, { type: "danger" });
-      }
-    }
-    catch (error) {
-      setLoading(false);
-      toast.show("خطا در ارتباط با سرور.", { type: "danger" });
-    }
-  }
-  // =================================================================
-  const cancelBySubmitter = async () => {
-    try {
-      setLoading(true);
-      let data = await CancelBySubmitter_Cargo_Api(id);
-      if (data.messageStatus == "Successful") {
-        setLoading(false);
-        // refreshScreen();
-        toast.show(data.message, { type: "success" });
-        navigation.navigate('CargoListScreen');
-      }
-      else {
-        setLoading(false);
-        toast.show(data.message, { type: "danger" });
-      }
-    }
-    catch (error) {
-      setLoading(false);
-      toast.show("خطا در ارتباط با سرور.", { type: "danger" });
-    }
-  }
-  // =================================================================
-  const extendTime = async () => {
-    try {
-      setLoading(true);
-      let data = await ExtendTime_Queue_Api(id);
-      if (data.messageStatus == "Successful") {
-        setRemainingTime(0);
-        setLoading(false);
-        refreshScreen();
-        toast.show(data.message, { type: "success" });
-      }
-      else {
-        setLoading(false);
-        toast.show(data.message, { type: "danger" });
-      }
-    }
-    catch (error) {
-      setLoading(false);
-      toast.show("خطا در ارتباط با سرور.", { type: "danger" });
-    }
-  }
-  // =================================================================
-  const isMeInFrontOfQueue = () => {
-    let x = queueItems.filter(q => q.isMe && q.isFront);
-    if (x && x.length)
-      return true;
-  }
   // =================================================================
 
   return (
     <View style={{ flex: 1 }} nestedScrollEnabled={true} >
 
-      <ScrollView style={cargoSingleStyles.screenContainer} >
-      <View style={[globalStyles.row]}>
+      <ScrollView style={cargoSingleStyles.screenContainer} keyboardShouldPersistTaps={'handled'}>
+        <View style={[globalStyles.row]}>
           <Text style={[globalStyles.screen_Title]}>کد بار: {cargo?.code}</Text>
         </View>
         <CargoInfo
           cargo={cargo}
+          isShowComment={true}
+          isShowCode={false}
+          isShowCargoStatus={false}
           isShowMoreInfoButton={false}
+          isShowTakeByDriverImage={false}
           isShowCompleteInfo={true}
+          isShowAdminButtons={false}
+          isShowApproveButtons={false}
+          onEditPress={null}
+          isShowSubmitterInfo={false}
+          isShowDriverInfo={false}
+          isShowQueue={false}
+          isColorfull={false}
+          navigation={navigation}
+          setLoading={setLoading}
         />
-
-        {remainingTime > 0 ? (
-          <CountDown
-            remainingTime={remainingTime}
-            onEnd={refreshScreen}
-          />
-        ) : (<></>)}
-
-        < CargoSubmitterInfo
-          cargo={cargo}
-        />
-        {/* اگر سر صف بودیم دیگه صف لازم نیست نمایش داده شود و اطلاعات تماس نمایش داده می شود */}
-        {!isMeInFrontOfQueue() ? (
-          <Queue
-            queueItems={queueItems}
-            onEnterToQueue={enterToQueue}
-            onExitFromQueue={exitFromQueue}
-            isMyCargo={isMyCargo}
-            navigation={navigation}
-          />
-        ) :
-          <View style={cargoSingleStyles.row_Buttons}>
-            <TouchableOpacity
-              style={[globalStyles.dangerButton, cargoSingleStyles.dontTakeButton]}
-              onPress={exitFromQueue}>
-              <Text style={[globalStyles.dangerButton_Text]}>این بار را نمی برم</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={[globalStyles.successButton, cargoSingleStyles.takeButton]}
-              onPress={takeByDriver}>
-              <Text style={[globalStyles.successButton_Text]}>این بار را می برم</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={[globalStyles.secondaryButton, cargoSingleStyles.cargoCanceledButton]}
-              onPress={cancelBySubmitter}>
-              <Text style={[globalStyles.secondaryButton_Text]}>اعلام کننده بار را لغو کرد</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style=
-              {currentQueueItem && !currentQueueItem.isExtendTime
-                ? [globalStyles.submitButton, cargoSingleStyles.extendTimeButton]
-                : [globalStyles.submitButton, cargoSingleStyles.extendTimeButton, globalStyles.disabledButton]
-              }
-              onPress={extendTime}>
-              <Text style={[globalStyles.submitButton_Text]}>نیاز به زمان بیشتر دارم</Text>
-            </TouchableOpacity>
-          </View>
+        {remainingTime > 0 ?
+          <CountDown remainingTime={remainingTime} onEnd={() => { loadCargo(); setIsMeInFrontOfQueue(false) }} />
+          : <></>
         }
-        <Loading loading={loading} />
+        < CargoSubmitterInfo cargo={cargo} />
+        <Queue cargo={cargo} isMyCargo={isMyCargo} setIsMeWaitingInQueue={setIsMeWaitingInQueue} setRemainingTime={setRemainingTime} isMeInFrontOfQueue={isMeInFrontOfQueue} setIsMeInFrontOfQueue={setIsMeInFrontOfQueue} navigation={navigation} setLoading={setLoading} />
+        <BehaviorButtons isMyCargo={isMyCargo} cargoId={cargo?.id} isMeWaitingInQueue={isMeWaitingInQueue} isMeInFrontOfQueue={isMeInFrontOfQueue} setRemainingTime={setRemainingTime} loadCargo={loadCargo} navigation={navigation} setLoading={setLoading} />
+
       </ScrollView>
+      <Loading loading={loading} />
     </View>
   )
 }

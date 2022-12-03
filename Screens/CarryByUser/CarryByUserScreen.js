@@ -10,6 +10,5 @@ export default function CarryByUserScreen(props) {
 
   return (
     <UserCarriedCargoes userId={userId} userFullName={userFullName} navigation={props.navigation}  isShowCompleteInfo={true} isShowBackButton={true}/>
-
   )
 }

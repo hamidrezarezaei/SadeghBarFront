@@ -11,5 +11,19 @@ export const addCargoStyles = StyleSheet.create({
         marginRight:calcPercent(1),
         paddingVertical:8,
         marginBottom:20
-    }
+    },
+    form_checkBoxGroup: {
+        width: calcPercent(87),
+        flexDirection: "row",
+        justifyContent: "space-between",
+    },
+    form_checkBox: {
+        width: calcPercent(40),
+
+    },
+    form_checkBoxTitle: {
+        paddingHorizontal: 5,
+        fontFamily: 'IranSans',
+
+    },
 });

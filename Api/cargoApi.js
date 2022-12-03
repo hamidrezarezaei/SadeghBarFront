@@ -12,6 +12,58 @@ export const GetList_Cargo_Api = async (bodyParameters) => {
     );
     return data;
 };
+
+// -----------------------------------------------------------
+export const GetListGreaterThanId_Cargo_Api = async (bodyParameters) => {
+    const { data } = await request.post(
+        `/Cargo/GetListGreaterThanId`,
+        bodyParameters
+    );
+    return data;
+};
+// -----------------------------------------------------------
+// let bodyParameters = {
+//     PageNumber: 1
+//   };
+//   let data = await GetAllActive_Cargo_Api(bodyParameters);
+//   console.log(data);
+export const GetList_Admin_Cargo_Api = async (bodyParameters) => {
+    const { data } = await request.post(
+        `/Cargo/GetList_Admin`,
+        bodyParameters
+    );
+    return data;
+};
+// -----------------------------------------------------------
+export const GetList_Admin_GreaterThanId_Cargo_Api = async (bodyParameters) => {
+    const { data } = await request.post(
+        `/Cargo/GetList_Admin_GreaterThanId`,
+        bodyParameters
+    );
+    return data;
+};
+// -----------------------------------------------------------
+// let bodyParameters = {
+//     PageNumber: 1
+//   };
+//   let data = await GetAllActive_Cargo_Api(bodyParameters);
+//   console.log(data);
+export const GetList_New_Cargo_Api = async (bodyParameters) => {
+    const { data } = await request.post(
+        `/Cargo/GetList_New`,
+        bodyParameters
+    );
+    return data;
+};
+// -----------------------------------------------------------
+export const GetList_New_GreaterThanId_Cargo_Api = async (bodyParameters) => {
+    const { data } = await request.post(
+        `/Cargo/GetList_New_GreaterThanId`,
+        bodyParameters
+    );
+    return data;
+};
+// -----------------------------------------------------------
 // -----------------------------------------------------------
 //   let searchParameters = {
 //      PageNumber: 1
@@ -35,6 +87,15 @@ export const GetAllCarryByUser_Cargo_Api = async (SearchParameters) => {
     const { data } = await request.post(
         `/Cargo/GetAllCarryByUser`,
         SearchParameters
+    );
+    return data;
+};
+// -----------------------------------------------------------
+// let data = await GetById_Cargo_Api(4);
+// console.log(data);
+export const SmartGetById_Cargo_Api = async (id) => {
+    const { data } = await request.get(
+        `/Cargo/SmartGetById/?id=${id}`
     );
     return data;
 };
@@ -122,13 +183,21 @@ export const CancelBySubmitter_Cargo_Api = async (id) => {
     return data;
 };
 // -----------------------------------------------------------
-// let data = await Delete_Cargo_Api(4);
+// let data = await CancelBySubmitter_Cargo_Api(2);
 // console.log(data);
-//only admin
-export const Delete_Cargo_Api = async (id) => {
-    const { data } = await request.delete(
-        `/Cargo/Delete/?id=${id}`
+export const DeleteByAdmin_Cargo_Api = async (id) => {
+    const { data } = await request.post(
+        `/Cargo/DeleteByAdmin/?id=${id}`
     );
     return data;
 };
 // -----------------------------------------------------------
+// let data = await CancelBySubmitter_Cargo_Api(2);
+// console.log(data);
+export const Approve_Cargo_Api = async (id) => {
+    const { data } = await request.post(
+        `/Cargo/Approve/?id=${id}`
+    );
+    return data;
+};
+

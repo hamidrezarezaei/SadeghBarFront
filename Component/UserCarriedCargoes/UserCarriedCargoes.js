@@ -2,10 +2,10 @@ import { Text, View, Button, TouchableWithoutFeedback, ScrollView, Keyboard, Fla
 import React, { useCallback, useState, useEffect } from 'react'
 import { useFocusEffect } from '@react-navigation/native';
 import { useToast } from "react-native-toast-notifications";
-import Loading from '../../Component/Loading/Loading';
+import Loading from '../Loading/Loading';
 import { globalStyles } from '../../assets/Styles/GlobalStyle';
-import CargoInfo from '../CargoInfo/CargoInfo';
-import SearchCargo from '../SearchCargo/SearchCargo';
+import CargoInfo from '../CargoList/CargoInfo/CargoInfo';
+import SearchCargo from '../Search/SearchCargo/SearchCargo';
 import { Feather } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 import { GetAllCarryByUser_Cargo_Api } from '../../Api/cargoApi';
@@ -31,7 +31,8 @@ export default function UserCarriedCargoes({
   const [sourceStateId, setSourceStateId] = useState(0);
   const [destinationStateId, setDestinationStateId] = useState(0);
   const [carTypeId, setCarTypeId] = useState(0);
-  const [isSmall, setIsSmall] = useState(true);
+  const [includeSmalls, setIncludeSmalls] = useState(true);
+  const [includeLarges, setIncludeLarges] = useState(true);
 
   const toast = useToast();
   // =================================================================
@@ -39,7 +40,7 @@ export default function UserCarriedCargoes({
     useCallback(() => {
       setPageNumber(1);
       loadData(1);
-    }, [code, sourceStateId, destinationStateId, carTypeId, isSmall])
+    }, [code, sourceStateId, destinationStateId, carTypeId, includeSmalls,includeLarges])
   );
   // =================================================================
   //وقتی که اسکرول به آخر رسید و شماره صفحه تغییر کرد دیتاهای صفحه بعدی لود می شوند.
@@ -62,7 +63,8 @@ export default function UserCarriedCargoes({
         sourceStateId: sourceStateId,
         destinationStateId: destinationStateId,
         carType: carTypeId,
-        includeSmalls: isSmall,
+        includeSmalls: includeSmalls,
+        includeLarges:includeLarges,
       };
 
       let data = await GetAllCarryByUser_Cargo_Api(searchParams);
@@ -89,14 +91,14 @@ export default function UserCarriedCargoes({
   // =================================================================
   const FlatList_Item = (item) => {
     return (
-      <CargoDetails cargo={item} navigation={navigation} isShowCompleteInfo={isShowCompleteInfo} />
+      <CargoDetails cargo={item} navigation={navigation} isShowCompleteInfo={isShowCompleteInfo} setLoading={setLoading}/>
     );
   }
   // =================================================================
   return (
     <View style={{ flex: 1 }} nestedScrollEnabled={true} >
       <View style={[globalStyles.row]}>
-        <Text style={[globalStyles.screen_Title]}>محموله های {userFullName}</Text>
+        <Text style={[globalStyles.screen_Title]}>بارهای حمل شده توسط {userFullName}</Text>
       </View>
       <View style={[globalStyles.screenContainer, userCarriedCargoesStyles.screenContainer]} >
         <Modal
@@ -119,8 +121,10 @@ export default function UserCarriedCargoes({
               setDestinationStateId={setDestinationStateId}
               carTypeId={carTypeId}
               setCarTypeId={setCarTypeId}
-              isSmall={isSmall}
-              setIsSmall={setIsSmall}
+              includeSmalls={includeSmalls}
+              setIncludeSmalls={setIncludeSmalls}
+              includeLarges={includeLarges}
+              setIncludeLarges={setIncludeLarges}
               setModalVisible={setModalVisible}
             />
           </TouchableWithoutFeedback>

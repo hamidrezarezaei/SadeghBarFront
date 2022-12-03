@@ -4,7 +4,13 @@ const calcPercent = (percent) => (Dimensions.get('window').width * percent) / 10
 
 export const cargoDetailsStyles = StyleSheet.create({
     detailsButton:{
-        width: '90%',
-        alignSelf: "center"
+        width: '48%',
+        paddingTop:10,
+        paddingBottom:10,
+    },
+    cargoCanceledButton:{
+        width:'48%',
+        paddingTop:10,
+        paddingBottom:10,
     },
 });

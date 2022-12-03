@@ -2,17 +2,30 @@
   "expo": {
     "name": "صادق بار",
     "slug": "SadeghBar",
-    "version": "1.0.0",
+    "version": "5.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#0078d7"
     },
+    "plugins": [
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/notifyicon.png",
+          "color": "#ffffff",
+          "sounds": [
+            "./assets/sound/notifysound.wav"
+          ]
+        }
+      ]
+    ],
     "updates": {
-      "fallbackToCacheTimeout": 0
+      "fallbackToCacheTimeout": 0,
+      "enabled": false
     },
     "assetBundlePatterns": [
       "**/*"
@@ -21,14 +34,25 @@
       "supportsTablet": true
     },
     "android": {
+      "versionCode": 60,
+      "package": "com.hrremail.SadeghBar",
+      "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.hrremail.SadeghBar"
+      "blockedPermissions": [
+        "android.permission.SYSTEM_ALERT_WINDOW",
+        "android.permission.RECORD_AUDIO"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "01f54a84-4ae0-4e3c-b182-21a1b052c03e"
+      }
     }
   }
 }

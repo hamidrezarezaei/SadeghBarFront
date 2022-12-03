@@ -4,16 +4,16 @@ import { useFocusEffect } from '@react-navigation/native';
 import { useToast } from "react-native-toast-notifications";
 import Loading from '../../Component/Loading/Loading';
 import { globalStyles } from '../../assets/Styles/GlobalStyle';
-import CargoInfo from '../../Component/CargoInfo/CargoInfo';
-import SearchCargo from '../../Component/SearchCargo/SearchCargo';
+import CargoInfo from '../../Component/CargoList/CargoInfo/CargoInfo';
+import SearchCargo from '../../Component/Search/SearchCargo/SearchCargo';
 import { Ionicons } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 import { GetAll_User_Api } from '../../Api/userApi';
 import { userListStyles } from './UserListStyle';
-import UserInfo from '../../Component/UserInfo/UserInfo';
-import SearchUser from '../../Component/SearchUser/SearchUser';
-import { setStatusBarBackgroundColor } from 'expo-status-bar';
+import UserInfo from '../../Component/User/UserInfo/UserInfo';
+import SearchUser from '../../Component/Search/SearchUser/SearchUser';
+// import { setStatusBarBackgroundColor } from 'expo-status-bar';
 // =================================================================
 
 export default function UserListScreen(props) {
@@ -31,6 +31,7 @@ export default function UserListScreen(props) {
     const [isActive, setIsActive] = useState(null);
     const [driverOnly, setDriverOnly] = useState(false);
     const [freightageOnly, setFreightageOnly] = useState(false);
+    const [productOwnerOnly,setProductOwnerOnly] = useState(false);
     const [carTypeId, setCarTypeId] = useState(0);
 
     const toast = useToast();
@@ -40,7 +41,7 @@ export default function UserListScreen(props) {
             setPageNumber(1);
             loadData(1);
             //   }, [sourceStateId, destinationStateId, carTypeId, isSmall])
-        }, [code, name, family, isSuspend, isActive, driverOnly, freightageOnly, carTypeId])
+        }, [code, name, family, isSuspend, isActive, driverOnly, freightageOnly,productOwnerOnly, carTypeId])
     );
     // =================================================================
     //وقتی که اسکرول به آخر رسید و شماره صفحه تغییر کرد دیتاهای صفحه بعدی لود می شوند.
@@ -58,13 +59,14 @@ export default function UserListScreen(props) {
 
             let searchParams = {
                 PageNumber: pNumber,
-                code: code,
+                code: code ? code : 0,
                 name: name,
                 family: family,
                 isSuspend: isSuspend,
                 isActive: isActive,
                 driverOnly: driverOnly,
                 freightageOnly: freightageOnly,
+                productOwnerOnly:productOwnerOnly,
                 CarTypeId: carTypeId,
             };
 
@@ -75,7 +77,7 @@ export default function UserListScreen(props) {
                     setUsers(data.messageData.data);
                 else
                     setUsers([...users, ...data.messageData.data]);
-
+console.log(users[0]);
                 setLoading(false);
             }
             else {
@@ -127,6 +129,8 @@ export default function UserListScreen(props) {
                             setDriverOnly={setDriverOnly}
                             freightageOnly={freightageOnly}
                             setFreightageOnly={setFreightageOnly}
+                            productOwnerOnly={productOwnerOnly}
+                            setProductOwnerOnly={setProductOwnerOnly}
                             carTypeId={carTypeId}
                             setCarTypeId={setCarTypeId}
 

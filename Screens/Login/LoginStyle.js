@@ -14,10 +14,20 @@ export const loginStyles = StyleSheet.create({
         // backgroundColor: '#0074bd',
         //سفید
         backgroundColor: '#fff',
+        marginVertical:50
+
+    },
+    privacyText: {
+        fontFamily: "IranSans",
+        color: '#333',
+        fontSize: 15,
+        marginTop: 40,
+        width: calcPercent(80),
+        textAlign: 'center',
 
     },
     forStartText: {
-        fontFamily: "IranSans",
+        fontFamily: "IranSansBold",
         color: '#333',
         fontSize: 15,
         marginTop: 40,

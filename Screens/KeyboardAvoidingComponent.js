@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View,ScrollView, KeyboardAvoidingView, TextInput, StyleSheet, Text, Platform, TouchableWithoutFeedback, Button, Keyboard  } from 'react-native';
-import StateCombo from '../Component/StateCombo/StateCombo';
+import StateCombo from '../Component/Combo/StateCombo/StateCombo';
 
 const KeyboardAvoidingComponent = () => {
   const [isModalVisible, setModalVisible] = useState(false);

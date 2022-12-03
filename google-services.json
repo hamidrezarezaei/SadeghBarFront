@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "400752411335",
+    "project_id": "sadeghbar-dc1ec",
+    "storage_bucket": "sadeghbar-dc1ec.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:400752411335:android:313cb2bd4978a4c300f4e2",
+        "android_client_info": {
+          "package_name": "com.hrremail.SadeghBar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "400752411335-fjg660e0f0nf0rdke7o7igjj3mmp9u82.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgb70J5WCFXOiXysNT5WXjsxsKDN1g7IQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "400752411335-fjg660e0f0nf0rdke7o7igjj3mmp9u82.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

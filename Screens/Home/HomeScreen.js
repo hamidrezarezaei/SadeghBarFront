@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useContext} from 'react'
 import { StyleSheet, Text } from 'react-native'
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from '@react-navigation/native';
@@ -16,6 +16,8 @@ import { Feather } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import { IsFreightageCurrentUser, IsProductOwnerCurrentUser } from '../../Util/UserUtils';
+import UserContext from '../../Context/UserContext';
 
 const Tab = createBottomTabNavigator();
 
@@ -23,6 +25,8 @@ const Tab = createBottomTabNavigator();
 const selectedColor = "orange"
 
 export default function HomeScreen() {
+  const context = useContext(UserContext);
+
   return (
       <Tab.Navigator
         screenOptions={{
@@ -31,8 +35,7 @@ export default function HomeScreen() {
           tabBarStyle: homeStyles.tabBar,
           tabBarItemStyle: homeStyles.tabBarItem,
           tabBarLabelStyle: homeStyles.tabBarLabel,
-          // tabBarActiveBackgroundColor: 'orange',
-          //  tabBarActiveBackgroundColor: '#0074bd',
+          tabBarHideOnKeyboard:"true",
           tabBarActiveBackgroundColor: '#0078d7'
           
         }}
@@ -79,7 +82,16 @@ export default function HomeScreen() {
             tabBarIcon: ({ focused }) => (<Feather name="box" size={35} color={focused ? "#ffffff" : "#7d7f7f"} />)
 
           }}
+          
+          listeners={({ navigation }) => ({
+            tabPress: (e) => {
+              e.preventDefault();
+              navigation.navigate('SubmitByMeStack', {screen: 'SubmitByMeScreen'});
+              // navigation.navigate("SubmitByMeScreen");
+            },
+          })}
         />
+        {!IsProductOwnerCurrentUser(context) && !IsFreightageCurrentUser(context) ?
         <Tab.Screen
           name="CarryByMeScreen"
           component={CarryByMeScreen}
@@ -91,6 +103,8 @@ export default function HomeScreen() {
             tabBarIcon: ({ focused }) => (<MaterialCommunityIcons name="checkbox-marked-circle-outline" size={35} color={focused ? "#ffffff" : "#7d7f7f"} />)
           }}
         />
+        :<></>
+      }
 
       </Tab.Navigator>
   )

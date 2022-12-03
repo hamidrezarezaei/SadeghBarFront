@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { globalStyles } from '../../assets/Styles/GlobalStyle'
-import { FormatNumber } from '../Util/Convertors';
+import { FormatNumber } from '../../Util/Convertors';
 // =================================================================
 
 export default function CargoDetails(
@@ -12,20 +12,7 @@ export default function CargoDetails(
     }
 ) {
     // =================================================================
-    const persianStatus = (status) => {
-        switch (status) {
-            case ("NewCargo"): return "تایید نشده";
-            case ("Active"): return "فعال";
-            case ("TakeByDriver"): return "حمل شده";
-            case ("CancelByDriver"): return "کنسل شده توسط راننده";
-            case ("CancelBySubmitter"): return "کنسل شده توسط اعلام کننده";
-            case ("UpdatedBySubmitter"): return "ویرایش شده";
-            case ("UpdatedByAdmin"): return "ویرایش شده توسط مدیر";
-            case ("DeleteByAdmin"): return "حذف شده توسط مدیر";
-        }
-    }
-    // =================================================================
-
+   
     return (
         <View style={globalStyles.boxContainer}>
 
@@ -36,12 +23,7 @@ export default function CargoDetails(
             <View style={globalStyles.separator}>
             </View>
 
-            <View style={globalStyles.row}>
-                <Text style={globalStyles.field_Title}>تاریخ ثبت بار:</Text>
-                <Text style={globalStyles.field_Value}>{cargo.submitDateShamsi}</Text>
-            </View>
-            <View style={globalStyles.separator}>
-            </View>
+          
 
             <View style={globalStyles.row}>
                 <Text style={globalStyles.field_Title}>مبدا بار:</Text>
@@ -52,6 +34,18 @@ export default function CargoDetails(
             <View style={globalStyles.row}>
                 <Text style={globalStyles.field_Title}>مقصد بار:</Text>
                 <Text style={globalStyles.field_Value}>استان {cargo.destinationStateTitle}{cargo?.destinationCityId > 0 ? " - شهر " + cargo?.destinationCityTitle : ""}</Text>
+            </View>
+            <View style={globalStyles.separator}>
+            </View>
+            <View style={globalStyles.row}>
+                <Text style={globalStyles.field_Title}>تاریخ ثبت بار:</Text>
+                <Text style={globalStyles.field_Value}>{cargo.submitDateShamsi} - ساعت {cargo.submitTime}</Text>
+            </View>
+            <View style={globalStyles.separator}>
+            </View>
+            <View style={globalStyles.row}>
+                <Text style={globalStyles.field_Title}>تاریخ حمل بار:</Text>
+                <Text style={globalStyles.field_Value}>{cargo.takeDateShamsi} - ساعت {cargo.takeTime}</Text>
             </View>
             <View style={globalStyles.separator}>
             </View>
@@ -67,7 +61,7 @@ export default function CargoDetails(
                         </View>
                         <View style={globalStyles.row}>
                             <Text style={globalStyles.field_Title}>اعلام کننده بار:</Text>
-                            <Text style={[globalStyles.field_Value,globalStyles.field_Value_Success]}>{cargo.submitterUserFullName} ({cargo.submitterUserCode})</Text>
+                            <Text style={[globalStyles.field_Value,globalStyles.field_Value_Success]}>{cargo.submitterUser.fullName} ({cargo.submitterUserCode})</Text>
                         </View>
                     </> :
                     <></>
