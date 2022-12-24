@@ -115,7 +115,8 @@ export default function CargoListScreen(props) {
   // =================================================================
   const refreshScreen = async () => {
     try {
-      // console.log('refresh start');
+      console.log('refresh start');
+      console.log('baseId',baseId);
       // setLoading(true);
       let searchParams = {
         baseId: baseId,

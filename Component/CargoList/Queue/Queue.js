@@ -11,6 +11,7 @@ import BehaviorButtons from '../BehaviorButtons/BehaviorButtons';
 // =================================================================
 export default function Queue({
     cargo,
+    loadCargo,
     navigation,
     setLoading,
     isMyCargo,
@@ -73,6 +74,8 @@ export default function Queue({
 
                 //اگر سر صف هستیم زمان باقی مانده را هم بگیر
                 if (checkIsMeInFrontOfQueue(qi)) {
+                    if(loadCargo)
+                        loadCargo();
                     setRemainingTime(0);
                     var me = qi.filter(q => q.isMe && q.isFront)[0];
                     setRemainingTime(me.remainingSecond);
