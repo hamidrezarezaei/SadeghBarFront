@@ -29,7 +29,8 @@ export default function CargoSubmitterInfo(
                         <Text style={cargoSubmitterInfoStyles.telTitle}>
                             شماره تماس :
                         </Text>
-                        <Text onPress={()=>{Linking.openURL('tel:' + cargo.tel);}} style={cargoSubmitterInfoStyles.tel}>
+                        {/* <Text onPress={()=>{Linking.openURL('tel:' + cargo.tel);}} style={cargoSubmitterInfoStyles.tel}> */}
+                        <Text style={cargoSubmitterInfoStyles.tel}>
                             {cargo?.tel}
                         </Text>
                     </View>

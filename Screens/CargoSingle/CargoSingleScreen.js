@@ -97,7 +97,7 @@ export default function CargoSingleScreen({ navigation, route }) {
         }
         < CargoSubmitterInfo cargo={cargo} />
         <Queue cargo={cargo} loadCargo={loadCargo} isMyCargo={isMyCargo} setIsMeWaitingInQueue={setIsMeWaitingInQueue} setRemainingTime={setRemainingTime} isMeInFrontOfQueue={isMeInFrontOfQueue} setIsMeInFrontOfQueue={setIsMeInFrontOfQueue} navigation={navigation} setLoading={setLoading} />
-        <BehaviorButtons isMyCargo={isMyCargo} cargoId={cargo?.id} isMeWaitingInQueue={isMeWaitingInQueue} isMeInFrontOfQueue={isMeInFrontOfQueue} setRemainingTime={setRemainingTime} loadCargo={loadCargo} navigation={navigation} setLoading={setLoading} />
+        <BehaviorButtons isMyCargo={isMyCargo} cargoId={cargo?.id} tel={cargo?.tel} isMeWaitingInQueue={isMeWaitingInQueue} isMeInFrontOfQueue={isMeInFrontOfQueue} setRemainingTime={setRemainingTime} loadCargo={loadCargo} navigation={navigation} setLoading={setLoading} />
 
       </ScrollView>
       <Loading loading={loading} />

@@ -1,5 +1,5 @@
-import React, { useEffect,useState } from 'react'
-import { Text, StyleSheet, View, TouchableOpacity, Alert } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { Text, StyleSheet, View, TouchableOpacity, Alert, Linking } from 'react-native'
 import { useToast } from 'react-native-toast-notifications';
 import { CancelBySubmitter_Cargo_Api } from '../../../Api/cargoApi';
 import { Enter_Queue_Api, Exit_Queue_Api, ExtendTime_Queue_Api, TakeByDriver_Queue_Api } from '../../../Api/queueApi';
@@ -10,6 +10,7 @@ import { behaviorButtonsStyles } from './BehaviorButtonsStyle';
 export default function BehaviorButtons({
   navigation,
   cargoId,
+  tel,
   isMyCargo,
   isMeWaitingInQueue,
   isMeInFrontOfQueue,
@@ -18,33 +19,34 @@ export default function BehaviorButtons({
   loadCargo
 }) {
   const toast = useToast();
- // =================================================================
- const [isExtendTime, setIsExtendTime] = useState(false);
- // =================================================================
+  // =================================================================
+  const [isExtendTime, setIsExtendTime] = useState(false);
+  const [isCalled, setIsCalled] = useState(false);
+  // =================================================================
 
   useEffect(() => {
-}, [isMyCargo,isMeWaitingInQueue,isMeInFrontOfQueue]);
- // =================================================================
- const enterToQueue = async () => {
-  try {
+  }, [isMyCargo, isMeWaitingInQueue, isMeInFrontOfQueue]);
+  // =================================================================
+  const enterToQueue = async () => {
+    try {
       setLoading(true);
       let data = await Enter_Queue_Api(cargoId);
       if (data.messageStatus == "Successful") {
-          setLoading(false);
-          if (loadCargo)
-              loadCargo();
-          toast.show(data.message, { type: "success" });
+        setLoading(false);
+        if (loadCargo)
+          loadCargo();
+        toast.show(data.message, { type: "success" });
       }
       else {
-          setLoading(false);
-          toast.show(data.message, { type: "danger" });
+        setLoading(false);
+        toast.show(data.message, { type: "danger" });
       }
-  }
-  catch (error) {
+    }
+    catch (error) {
       setLoading(false);
       toast.show("خطا در ارتباط با سرور.", { type: "danger" });
+    }
   }
-}
   // =================================================================
   const exitFromQueueConfirm = () => {
     Alert.alert('', 'آیا در مورد انصراف از این بار اطمینان دارید؟', [
@@ -175,13 +177,18 @@ export default function BehaviorButtons({
           onPress={exitFromQueueConfirm}>
           <Text style={[globalStyles.dangerButton_Text]}>این بار را نمی برم</Text>
         </TouchableOpacity>
-
-        <TouchableOpacity
-          style={[globalStyles.successButton, behaviorButtonsStyles.takeButton]}
-          onPress={takeByDriverConfirm}>
-          <Text style={[globalStyles.successButton_Text]}>این بار را می برم</Text>
-        </TouchableOpacity>
-
+        {isCalled ?
+          <TouchableOpacity
+            style={[globalStyles.successButton, behaviorButtonsStyles.takeButton]}
+            onPress={takeByDriverConfirm}>
+            <Text style={[globalStyles.successButton_Text]}>این بار را می برم</Text>
+          </TouchableOpacity> :
+          <TouchableOpacity
+            style={[globalStyles.successButton, behaviorButtonsStyles.takeButton]}
+            onPress={() => { Linking.openURL('tel:' + tel); setIsCalled(true)}}>
+            <Text style={[globalStyles.successButton_Text]}>تماس با اعلام کننده</Text>
+          </TouchableOpacity>
+        }
         <TouchableOpacity
           style={[globalStyles.secondaryButton, behaviorButtonsStyles.cargoCanceledButton]}
           onPress={cancelBySubmitterConfirm}>

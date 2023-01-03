@@ -234,6 +234,7 @@ const deleteByAdmin = async () => {
             </View>
             <View style={globalStyles.row}>
               <Text style={globalStyles.field_Title}>شماره تماس:</Text>
+              {/* <Text onPress={() => { Linking.openURL('tel:' + cargo.tel); }} style={[globalStyles.field_Value]}> */}
               <Text onPress={() => { Linking.openURL('tel:' + cargo.tel); }} style={[globalStyles.field_Value]}>
                 {cargo?.tel}
               </Text>
